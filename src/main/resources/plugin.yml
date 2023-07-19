@@ -1,0 +1,5 @@
+name: Lastmanstanding
+version: '${project.version}'
+main: me.kagenyx.lastmanstanding.LastManStanding
+api-version: 1.20
+description: A minigame for Minecraft.

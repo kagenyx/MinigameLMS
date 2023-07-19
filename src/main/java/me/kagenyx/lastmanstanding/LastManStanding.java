@@ -1,17 +1,21 @@
 package me.kagenyx.lastmanstanding;
 
+import me.kagenyx.lastmanstanding.instances.Arena;
+import me.kagenyx.lastmanstanding.managers.ArenaManager;
+import me.kagenyx.lastmanstanding.managers.ConfigManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class LastManStanding extends JavaPlugin {
 
+    private ArenaManager am;
+
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        ConfigManager.setupConfig(this);
 
+        am = new ArenaManager(this);
     }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+    public ArenaManager getArenaManager() {
+        return am;
     }
 }

@@ -17,7 +17,7 @@ public class ArenaManager {
     public ArenaManager(LastManStanding lms){
         FileConfiguration config = lms.getConfig();
         for(String str : config.getConfigurationSection("arenas.").getKeys(false)){
-            arenas.add(new Arena(Integer.parseInt(str), new Location(Bukkit.getWorld(config.getString("arenas." + str + "world")),
+            arenas.add(new Arena(lms,Integer.parseInt(str), new Location(Bukkit.getWorld(config.getString("arenas." + str + "world")),
                     config.getDouble("arenas." + str + "x"),
                     config.getDouble("arenas." + str + "y"),
                     config.getDouble("arenas." + str + "z"),

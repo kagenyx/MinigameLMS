@@ -16,6 +16,8 @@ import java.util.UUID;
 
 public class Arena {
 
+    private LastManStanding lms;
+
     private int id;
     private Location spawn;
     private int WorldBorder;
@@ -23,6 +25,18 @@ public class Arena {
     private GameState state;
     private List<UUID> players;
     private Countdown countdown;
+    private Game game;
+
+    public Arena(LastManStanding lms, int id, Location spawn){
+        this.lms = lms;
+        this.id = id;
+        this.spawn = spawn;
+
+        this.state = GameState.RECRUITING;
+        this.players = new ArrayList<>();
+        this.countdown = new Countdown(lms, this);
+        this.game = new Game(this);
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -44,15 +58,6 @@ public class Arena {
         this.players = players;
     }
 
-    public Arena(LastManStanding lms, int id, Location spawn){
-        this.id = id;
-        this.spawn = spawn;
-
-        this.state = GameState.RECRUITING;
-        this.players = new ArrayList<>();
-        this.countdown = new Countdown(lms, this);
-    }
-
     public void sendMessage(Component msg){
         for(UUID uuid : players) {
             Bukkit.getPlayer(uuid).sendMessage(msg);
@@ -68,6 +73,9 @@ public class Arena {
     public void addPlayer(Player p) {
         players.add(p.getUniqueId());
         p.teleport(this.spawn);
+        if(state.equals(GameState.RECRUITING) && players.size() >= ConfigManager.getReqPlayers()) {
+            countdown.start();
+        }
     }
 
     public void removePlayer(Player p) {
@@ -85,5 +93,23 @@ public class Arena {
 
     public GameState getState() {
         return state;
+    }
+
+    public void start() {
+        game.start();
+    }
+
+    public void reset(boolean kickPlayers) {
+        if(kickPlayers) {
+            Location loc = ConfigManager.getLobby();
+            for (UUID uuid : players){
+                Bukkit.getPlayer(uuid).teleport(loc);
+            }
+            players.clear();
+        }
+        state = GameState.RECRUITING;
+        countdown.cancel();
+        countdown = new Countdown(lms,this);
+        game = new Game(this);
     }
 }

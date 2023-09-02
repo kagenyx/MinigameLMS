@@ -29,7 +29,7 @@ public class Countdown extends BukkitRunnable {
     public void run() {
         if(this.cdsecs == 0) {
             cancel();
-            //arena.start()
+            arena.start();
             return;
         }
 

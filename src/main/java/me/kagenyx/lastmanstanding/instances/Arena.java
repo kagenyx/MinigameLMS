@@ -81,6 +81,17 @@ public class Arena {
     public void removePlayer(Player p) {
         players.remove(p.getUniqueId());
         p.teleport(ConfigManager.getLobby());
+
+        if(this.state == GameState.COUNTDOWN && players.size() < ConfigManager.getReqPlayers()){
+            sendMessage(Component.text("Acabou viado"));
+            reset(false);
+            return;
+        }
+
+        if(this.state == GameState.LIVE && players.size() < ConfigManager.getReqPlayers()){
+            sendMessage(Component.text("Acabou viado"));
+            reset(true);
+        }
     }
 
     public List<UUID> getPlayers() {
@@ -112,4 +123,6 @@ public class Arena {
         countdown = new Countdown(lms,this);
         game = new Game(this);
     }
+
+    public Game getGame() {return this.game;}
 }

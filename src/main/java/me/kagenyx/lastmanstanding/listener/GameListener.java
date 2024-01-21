@@ -6,6 +6,7 @@ import me.kagenyx.lastmanstanding.instances.Arena;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 
 public class GameListener implements Listener {
     private LastManStanding lms;
@@ -23,5 +24,11 @@ public class GameListener implements Listener {
                 arena.getGame().addPoint(e.getPlayer());
             }
         }
+    }
+
+    @EventHandler
+    public void killPlayer(EntityDeathEvent e){
+        Arena arena = this.lms.getArenaManager().getArena(e.getEntity().getKiller());
+
     }
 }

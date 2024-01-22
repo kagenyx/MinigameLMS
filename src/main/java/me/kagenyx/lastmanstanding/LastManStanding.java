@@ -21,7 +21,7 @@ public final class LastManStanding extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ConnectListener(this), this);
         Bukkit.getPluginManager().registerEvents(new GameListener(this), this);
 
-        getCommand("arena").setExecutor(new ArenaCommand());
+        getCommand("arena").setExecutor(new ArenaCommand(this));
     }
     public ArenaManager getArenaManager() {
         return am;

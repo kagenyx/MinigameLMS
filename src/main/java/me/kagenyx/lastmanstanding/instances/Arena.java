@@ -3,6 +3,10 @@ package me.kagenyx.lastmanstanding.instances;
 
 import me.kagenyx.lastmanstanding.GameState;
 import me.kagenyx.lastmanstanding.LastManStanding;
+import me.kagenyx.lastmanstanding.kit.Kit;
+import me.kagenyx.lastmanstanding.kit.KitType;
+import me.kagenyx.lastmanstanding.kit.type.EnderbornKit;
+import me.kagenyx.lastmanstanding.kit.type.VikingKit;
 import me.kagenyx.lastmanstanding.managers.ConfigManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -11,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +29,7 @@ public class Arena {
 
     private GameState state;
     private List<UUID> players;
+    private HashMap<UUID,Kit> kits;
     private Countdown countdown;
     private Game game;
 
@@ -34,6 +40,7 @@ public class Arena {
 
         this.state = GameState.RECRUITING;
         this.players = new ArrayList<>();
+        this.kits = new HashMap<UUID, Kit>();
         this.countdown = new Countdown(lms, this);
         this.game = new Game(this);
     }
@@ -82,6 +89,7 @@ public class Arena {
         players.remove(p.getUniqueId());
         p.teleport(ConfigManager.getLobby());
 
+        removeKit(p.getUniqueId());
         if(this.state == GameState.COUNTDOWN && players.size() < ConfigManager.getReqPlayers()){
             sendMessage(Component.text("Acabou viado"));
             reset(false);
@@ -106,6 +114,10 @@ public class Arena {
         return state;
     }
 
+    public HashMap<UUID, Kit> getKits() {
+        return kits;
+    }
+
     public void start() {
         game.start();
     }
@@ -114,10 +126,14 @@ public class Arena {
         if(kickPlayers) {
             Location loc = ConfigManager.getLobby();
             for (UUID uuid : players){
+                //dumb?? but its in tutorial ig lmao
                 Bukkit.getPlayer(uuid).teleport(loc);
+                removeKit(Bukkit.getPlayer(uuid).getUniqueId());
             }
             players.clear();
         }
+        kits.clear();
+
         state = GameState.RECRUITING;
         countdown.cancel();
         countdown = new Countdown(lms,this);
@@ -125,4 +141,20 @@ public class Arena {
     }
 
     public Game getGame() {return this.game;}
+
+    public void removeKit(UUID uuid) {
+        if (kits.containsKey(uuid)) {
+            kits.get(uuid).remove();
+            kits.remove(uuid);
+        }
+    }
+
+    public void setKit(UUID uuid, KitType type) {
+        removeKit(uuid);
+        if (type == KitType.ENDERBORN) {
+            kits.put(uuid, new EnderbornKit(lms,uuid));
+        } else if (type == KitType.VIKING) {
+            kits.put(uuid, new VikingKit(lms,uuid));
+        }
+    }
 }

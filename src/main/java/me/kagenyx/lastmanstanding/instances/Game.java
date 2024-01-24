@@ -3,6 +3,7 @@ package me.kagenyx.lastmanstanding.instances;
 import me.kagenyx.lastmanstanding.GameState;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -19,6 +20,10 @@ public class Game {
     public void start() {
         arena.setState(GameState.LIVE);
         arena.sendMessage(Component.text("GAME HAS STARTED!", NamedTextColor.GREEN));
+
+        for (UUID uuid : arena.getKits().keySet()) {
+            arena.getKits().get(uuid).onStart(Bukkit.getPlayer(uuid));
+        }
 
         for (UUID uuid : arena.getPlayers()){
             points.put(uuid,0);

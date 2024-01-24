@@ -65,7 +65,19 @@ public class ArenaCommand implements CommandExecutor {
                 } else {
                     p.sendMessage(Component.text("Invalid arena.",NamedTextColor.RED));
                 }
-            } else {
+            } else if (args.length == 1  && args[0].equalsIgnoreCase("kit")){
+                Arena arena = lms.getArenaManager().getArena(p);
+                if(arena != null) {
+                    if (arena.getState() != GameState.LIVE) {
+
+                    } else {
+                        //ta a jogar logo n pode selecionar o kit :D
+                    }
+                } else {
+                    //do nothing
+                }
+            }
+            else {
                 p.sendMessage(Component.text("Invalid usage!", NamedTextColor.RED));
             }
 

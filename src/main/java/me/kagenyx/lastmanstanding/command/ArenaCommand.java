@@ -3,6 +3,7 @@ package me.kagenyx.lastmanstanding.command;
 import me.kagenyx.lastmanstanding.GameState;
 import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.instances.Arena;
+import me.kagenyx.lastmanstanding.kit.KitUI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
@@ -69,7 +70,7 @@ public class ArenaCommand implements CommandExecutor {
                 Arena arena = lms.getArenaManager().getArena(p);
                 if(arena != null) {
                     if (arena.getState() != GameState.LIVE) {
-
+                        new KitUI(p);
                     } else {
                         //ta a jogar logo n pode selecionar o kit :D
                     }

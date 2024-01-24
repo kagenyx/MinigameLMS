@@ -18,8 +18,8 @@ public class KitUI {
         for (KitType type : KitType.values()) {
             ItemStack is = new ItemStack(type.getMaterial());
             ItemMeta isMeta = is.getItemMeta();
-            isMeta.setDisplayName(type.getDisplay());
-            isMeta.setLore(Arrays.asList(type.getDesc()));
+            isMeta.displayName(type.getDisplay());
+            isMeta.lore(Arrays.asList(type.getDesc()));
             isMeta.setLocalizedName(type.name());
             is.setItemMeta(isMeta);
 

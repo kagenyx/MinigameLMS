@@ -27,6 +27,7 @@ public class Game {
 
         for (UUID uuid : arena.getPlayers()){
             points.put(uuid,0);
+            Bukkit.getPlayer(uuid).closeInventory();
         }
     }
 

@@ -23,8 +23,22 @@ public class GameListener implements Listener {
         Player p = (Player) e.getWhoClicked();
 
         if (e.getView().getTitle().contains("Kit Selection") && e.getInventory() != null && e.getCurrentItem() != null) {
+            e.setCancelled(true);
             KitType type = KitType.valueOf(e.getCurrentItem().getItemMeta().getLocalizedName());
 
+            Arena arena = this.lms.getArenaManager().getArena(p);
+            if (arena != null) {
+                KitType act = arena.getKitType(p);
+                if (act != null && act == type) {
+                    //n é possível caguei no send message tbh :(
+                } else {
+                    //conseguiu !
+                    //ok talvez tenha de usar sendmessage
+                    //TODO
+                    arena.setKit(p.getUniqueId(),type);
+                }
+                p.closeInventory();
+            }
         }
     }
 

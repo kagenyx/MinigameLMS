@@ -157,4 +157,8 @@ public class Arena {
             kits.put(uuid, new VikingKit(lms,uuid));
         }
     }
+
+    public KitType getKitType (Player player) {
+        return kits.containsKey(player.getUniqueId()) ? kits.get(player.getUniqueId()).getType() : null;
+    }
 }

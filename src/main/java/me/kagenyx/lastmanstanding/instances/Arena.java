@@ -134,7 +134,10 @@ public class Arena {
             players.clear();
         }
         kits.clear();
-
+        for (UUID uuid : players) {
+            Bukkit.getPlayer(uuid).clearActivePotionEffects();
+            Bukkit.getPlayer(uuid).getInventory().clear();
+        }
         state = GameState.RECRUITING;
         countdown.cancel();
         countdown = new Countdown(lms,this);

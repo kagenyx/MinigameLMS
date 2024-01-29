@@ -5,6 +5,7 @@ import me.kagenyx.lastmanstanding.GameState;
 import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.kit.Kit;
 import me.kagenyx.lastmanstanding.kit.KitType;
+import me.kagenyx.lastmanstanding.kit.type.Agent47Kit;
 import me.kagenyx.lastmanstanding.kit.type.EnderbornKit;
 import me.kagenyx.lastmanstanding.kit.type.VikingKit;
 import me.kagenyx.lastmanstanding.managers.ConfigManager;
@@ -155,6 +156,8 @@ public class Arena {
             kits.put(uuid, new EnderbornKit(lms,uuid));
         } else if (type == KitType.VIKING) {
             kits.put(uuid, new VikingKit(lms,uuid));
+        } else if (type == KitType.AGENT47) {
+            kits.put(uuid, new Agent47Kit(lms,uuid));
         }
     }
 

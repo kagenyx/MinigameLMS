@@ -14,7 +14,8 @@ public class Game {
     private Arena arena;
     private HashMap<UUID,Integer> points;
     public Game(Arena arena){
-
+        this.arena = arena;
+        this.points = new HashMap<>();
     }
 
     public void start() {

@@ -4,6 +4,7 @@ import me.kagenyx.lastmanstanding.GameState;
 import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.instances.Arena;
 import me.kagenyx.lastmanstanding.kit.KitType;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +23,7 @@ public class GameListener implements Listener {
     public void onClick (InventoryClickEvent e){
         Player p = (Player) e.getWhoClicked();
 
+
         if (e.getView().getTitle().contains("Kit Selection") && e.getInventory() != null && e.getCurrentItem() != null) {
             e.setCancelled(true);
             KitType type = KitType.valueOf(e.getCurrentItem().getItemMeta().getLocalizedName());
@@ -32,9 +34,7 @@ public class GameListener implements Listener {
                 if (act != null && act == type) {
                     //n é possível caguei no send message tbh :(
                 } else {
-                    //conseguiu !
-                    //ok talvez tenha de usar sendmessage
-                    //TODO
+                    p.sendMessage(Component.text("You've chosen " + type.name()));
                     arena.setKit(p.getUniqueId(),type);
                 }
                 p.closeInventory();
@@ -55,7 +55,9 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void killPlayer(EntityDeathEvent e){
-        Arena arena = this.lms.getArenaManager().getArena(e.getEntity().getKiller());
+        if(e.getEntity().getKiller() instanceof Player) {
+            Arena arena = this.lms.getArenaManager().getArena(e.getEntity().getKiller());
+        }
 
     }
 }

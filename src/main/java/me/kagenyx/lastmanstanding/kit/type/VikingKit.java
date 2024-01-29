@@ -4,9 +4,12 @@ import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.kit.Kit;
 import me.kagenyx.lastmanstanding.kit.KitType;
 import org.bukkit.Material;
+import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;

@@ -71,7 +71,7 @@ public class Agent47Kit extends Kit {
                 if(ad.dot(add) > 0 && damager.isSneaking()) {
                     //TODO
                     //3.0 ONLY FOR DEBUG, CHANGE LATER!!
-                    e.setDamage(3.0);
+                    e.setDamage(e.getDamage()*3.0);
                 }
 
             }

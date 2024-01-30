@@ -6,9 +6,7 @@ import me.kagenyx.lastmanstanding.kit.Kit;
 import me.kagenyx.lastmanstanding.kit.KitType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EnderPearl;
@@ -20,11 +18,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.profile.PlayerTextures;
 
 import java.net.MalformedURLException;
@@ -67,6 +68,17 @@ public class EnderbornKit extends Kit {
         eye.setItemMeta(eyemeta);
         player.getInventory().addItem(eye);
 
+        player.getInventory().addItem(new ItemStack(Material.ENDER_PEARL));
+        player.getInventory().addItem(new ItemStack(Material.CHORUS_FRUIT,16));
+
+        //Chestplate
+        ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+        ItemMeta chestplate_meta = chestplate.getItemMeta();
+        chestplate_meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL,5,true);
+        chestplate_meta.addEnchant(Enchantment.DURABILITY,10,true);
+        chestplate.setItemMeta(chestplate_meta);
+
+        player.getInventory().addItem(chestplate);
     }
 
     @EventHandler
@@ -121,8 +133,9 @@ public class EnderbornKit extends Kit {
                 eyemeta.displayName(Component.text("The End", TextColor.fromCSSHexString("#b27fb2")));
                 eyemeta.setLocalizedName("OLACRL");
                 eye.setItemMeta(eyemeta);
-                System.out.println("Item: " + damager.getInventory().getItemInMainHand().toString());
                 if(damager.getInventory().getItemInMainHand().getType() == Material.ENDER_EYE) {
+                    Particle.DustOptions dustOp = new Particle.DustOptions(Color.fromRGB(255,102,255),20.0F);
+                    Bukkit.getWorld("world").spawnParticle(Particle.REDSTONE,damaged.getLocation(),50,1, 1, 1,dustOp);
                     damaged.teleport(randomTeleport(4,damaged));
                 }
             }
@@ -136,12 +149,19 @@ public class EnderbornKit extends Kit {
         }
     }
 
+    @EventHandler
+    public void chorusFruit (PlayerItemConsumeEvent e) {
+        if(uuid.equals(e.getPlayer().getUniqueId()) && e.getItem().getType() == Material.CHORUS_FRUIT) {
+            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,200,2));
+        }
+    }
+
     private Location randomTeleport(int radius, Player p) {
         Random rnd = new Random();
         int x,z;
 
-        x = rnd.nextInt(radius) + 3;
-        z = rnd.nextInt(radius) + 3;
+        x = rnd.nextInt(radius) + 2;
+        z = rnd.nextInt(radius) + 2;
 
         if(rnd.nextBoolean()) {
             x = x*(-1);
@@ -152,21 +172,17 @@ public class EnderbornKit extends Kit {
         }
 
         Location pLoc = p.getLocation();
-        System.out.println("I will check for the coords: x:" + (pLoc.getX()+x) + ", z: " + (pLoc.getZ()+z));
-        while (!(Bukkit.getWorld("world").getBlockAt((int) (pLoc.getX() + x), (int) pLoc.getY(), (int) (pLoc.getZ() + z)).getType() == Material.AIR &&
-                Bukkit.getWorld("world").getBlockAt((int) (pLoc.getX() + x), (int) pLoc.getY() + 1, (int) (pLoc.getZ() + z)).getType() == Material.AIR)) {
-            x = rnd.nextInt(radius) + 3;
-            z = rnd.nextInt(radius) + 3;
-            System.out.println("I will check for the coords: x:" + (pLoc.getX()+x) + ", z: " + (pLoc.getZ()+z));
-            if(rnd.nextBoolean()) {
-                x = x*(-1);
-            }
+        int player_x = (int) pLoc.getX();
+        int player_y = (int) pLoc.getY();
+        int player_z = (int) pLoc.getZ();
 
-            if(rnd.nextBoolean()){
-                z = z*(-1);
-            }
+        while (!(Bukkit.getWorld("world").getBlockAt( (player_x + x), player_y, (player_z + z)).getType() == Material.AIR &&
+                Bukkit.getWorld("world").getBlockAt( (player_x + x), player_y + 1,  (player_z + z)).getType() == Material.AIR)) {
+            player_y++;
         }
-        System.out.println("I will tp: x:" + (pLoc.getX()+x) + ", z: " + (pLoc.getZ()+z));
-        return new Location(Bukkit.getWorld("world"),pLoc.getX() + x, pLoc.getY(),pLoc.getZ() + z);
+        System.out.println("pX" + player_x + ". x:" + x);
+        System.out.println("pZ" + player_z + ". z:" + z);
+        System.out.println("I will tp: x:" + (player_x+x) + ", y:" + player_y + ", z: " + (player_z+z));
+        return new Location(Bukkit.getWorld("world"),player_x + x, player_y,player_z + z);
     }
 }

@@ -12,8 +12,10 @@ public abstract class Kit implements Listener {
 
     protected KitType type;
     protected UUID uuid;
+    protected LastManStanding lms;
 
     public Kit(LastManStanding lms, KitType type, UUID uuid) {
+        this.lms = lms;
         this.type = type;
         this.uuid = uuid;
 

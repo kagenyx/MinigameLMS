@@ -130,14 +130,12 @@ public class Arena {
                 //dumb?? but its in tutorial ig lmao
                 Bukkit.getPlayer(uuid).teleport(loc);
                 removeKit(Bukkit.getPlayer(uuid).getUniqueId());
+                Bukkit.getPlayer(uuid).clearActivePotionEffects();
+                Bukkit.getPlayer(uuid).getInventory().clear();
             }
             players.clear();
         }
         kits.clear();
-        for (UUID uuid : players) {
-            Bukkit.getPlayer(uuid).clearActivePotionEffects();
-            Bukkit.getPlayer(uuid).getInventory().clear();
-        }
         state = GameState.RECRUITING;
         countdown.cancel();
         countdown = new Countdown(lms,this);

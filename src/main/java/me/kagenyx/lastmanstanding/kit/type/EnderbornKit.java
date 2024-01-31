@@ -82,30 +82,6 @@ public class EnderbornKit extends Kit {
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent e) {
-        System.out.println("Caralho");
-    }
-
-    @EventHandler
-    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-        if (!(event.getRightClicked() instanceof Player)) {
-            return; // Not interacting with a player
-        }
-
-        Player player = event.getPlayer();
-
-        // Check if the player used an ender pearl
-        ItemStack item = player.getInventory().getItemInMainHand();
-        if (item.getType() == Material.ENDER_PEARL) {
-            // Player threw an ender pearl
-            // Now you can do something with the player
-            player.sendMessage("You threw an ender pearl!");
-
-            // Additional code here...
-        }
-    }
-
-    @EventHandler
     public void onDebugEnderPearl(PlayerTeleportEvent e) {
 
         if(uuid.equals(e.getPlayer().getUniqueId())){

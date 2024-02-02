@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -73,9 +74,10 @@ public class EnderbornKit extends Kit {
 
         //Chestplate
         ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
-        ItemMeta chestplate_meta = chestplate.getItemMeta();
+        LeatherArmorMeta chestplate_meta = (LeatherArmorMeta) chestplate.getItemMeta();
         chestplate_meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL,5,true);
         chestplate_meta.addEnchant(Enchantment.DURABILITY,10,true);
+        chestplate_meta.setColor(Color.BLACK);
         chestplate.setItemMeta(chestplate_meta);
 
         player.getInventory().addItem(chestplate);

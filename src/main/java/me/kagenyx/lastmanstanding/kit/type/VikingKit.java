@@ -17,17 +17,28 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.UUID;
 
 public class VikingKit extends Kit {
 
+    Material[] meat = {Material.COOKED_BEEF,Material.COOKED_PORKCHOP,Material.COOKED_COD,
+            Material.COOKED_CHICKEN, Material.COOKED_RABBIT,Material.COOKED_SALMON,
+            Material.BEEF,Material.CHICKEN,Material.SALMON,Material.PORKCHOP,Material.RABBIT,Material.COD,Material.MUTTON, Material.COOKED_MUTTON};
+    private LinkedList<Material> meat_ll;
 
     public VikingKit(LastManStanding lms, UUID uuid) {
+
         super(lms,KitType.VIKING, uuid);
+        LinkedList<Material> meat_ll = new LinkedList<>();
+        this.meat_ll.addAll(Arrays.asList(meat));
     }
 
     @Override
@@ -58,6 +69,13 @@ public class VikingKit extends Kit {
                     e.setCancelled(true);
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onArrowDamage(PlayerItemConsumeEvent e) {
+        if (!(this.meat_ll.contains(e.getItem().getType()))){
+            e.setCancelled(true);
         }
     }
 

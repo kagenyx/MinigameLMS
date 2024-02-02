@@ -15,7 +15,8 @@ public enum KitType {
     VIKING(Component.text("Viking").color(NamedTextColor.DARK_GRAY),Material.CHAINMAIL_HELMET,Component.text("The gods shall protect us.").color(NamedTextColor.GRAY)),
     AGENT47(Component.text("Agent 47").color(NamedTextColor.DARK_RED),Material.POTION,Component.text("Good job 47.").color(NamedTextColor.GRAY)),
     DREADWALKER(Component.text("Dreadwalker").color(NamedTextColor.DARK_AQUA),Material.TRIDENT,Component.text("They do not fear the depths of the waters; no, they fear us!").color(NamedTextColor.GRAY)),
-    NOOB(Component.text("N00b").color(NamedTextColor.WHITE),Material.STICK,Component.text("How do I craft a Sponge?").color(NamedTextColor.GRAY));
+    NOOB(Component.text("N00b").color(NamedTextColor.WHITE),Material.STICK,Component.text("How do I craft a Sponge?").color(NamedTextColor.GRAY)),
+    GAMBLER(Component.text("Gambler"),Material.EMERALD,Component.text("A Betano está a oferecer rodadas grátis").color(NamedTextColor.GRAY));
 
     private Component text, desc;
     private Material material;

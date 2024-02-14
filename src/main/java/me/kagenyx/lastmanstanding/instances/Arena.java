@@ -5,9 +5,7 @@ import me.kagenyx.lastmanstanding.GameState;
 import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.kit.Kit;
 import me.kagenyx.lastmanstanding.kit.KitType;
-import me.kagenyx.lastmanstanding.kit.type.Agent47Kit;
-import me.kagenyx.lastmanstanding.kit.type.EnderbornKit;
-import me.kagenyx.lastmanstanding.kit.type.VikingKit;
+import me.kagenyx.lastmanstanding.kit.type.*;
 import me.kagenyx.lastmanstanding.managers.ConfigManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -159,6 +157,14 @@ public class Arena {
             kits.put(uuid, new VikingKit(lms,uuid));
         } else if (type == KitType.AGENT47) {
             kits.put(uuid, new Agent47Kit(lms,uuid));
+        } else if (type == KitType.BEASTMASTER) {
+            kits.put(uuid, new BeastmasterKit(lms,KitType.BEASTMASTER,uuid));
+        } else if (type == KitType.VIKING) {
+            kits.put(uuid, new VikingKit(lms,uuid));
+        } else if (type == KitType.GAMBLER) {
+            kits.put(uuid, new GamblerKit(lms,KitType.GAMBLER,uuid));
+        } else if (type == KitType.SAMURAI) {
+            kits.put(uuid, new SamuraiKit(lms,KitType.SAMURAI,uuid));
         }
     }
 

@@ -34,7 +34,7 @@ public class GameListener implements Listener {
                 if (act != null && act == type) {
                     //n é possível caguei no send message tbh :(
                 } else {
-                    p.sendMessage(Component.text("You've chosen " + type.name()));
+                    p.sendMessage(Component.text("You've chosen " + type.getDisplay()));
                     arena.setKit(p.getUniqueId(),type);
                 }
                 p.closeInventory();

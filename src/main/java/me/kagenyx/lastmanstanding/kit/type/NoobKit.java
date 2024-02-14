@@ -7,10 +7,9 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class DreadwalkerKit extends Kit {
-
-    public DreadwalkerKit(LastManStanding lms, UUID uuid) {
-        super(lms, KitType.DREADWALKER, uuid);
+public class NoobKit extends Kit {
+    public NoobKit(LastManStanding lms, KitType type, UUID uuid) {
+        super(lms, KitType.NOOB, uuid);
     }
 
     @Override

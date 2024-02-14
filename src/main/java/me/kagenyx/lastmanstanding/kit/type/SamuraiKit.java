@@ -40,7 +40,7 @@ public class SamuraiKit extends Kit {
         katana_meta.setCustomModelData(99);
         katana_meta.addEnchant(Enchantment.DAMAGE_ALL,2,true);
         katana_meta.addEnchant(Enchantment.DURABILITY,10,true);
-        katana_meta.displayName(Component.text("Ikutachi").color(TextColor.fromHexString("#66000")));
+        katana_meta.displayName(Component.text("Ikutachi").color(TextColor.fromHexString("#66000d")));
         katana_meta.lore(Arrays.asList(Component.text("The true power of Ikutachi can only be harnessed alongside Ikuyumiya.")));
         katana.setItemMeta(katana_meta);
 
@@ -54,7 +54,7 @@ public class SamuraiKit extends Kit {
         arr_meta.addEnchant(Enchantment.ARROW_INFINITE,1,true);
         arr_meta.addEnchant(Enchantment.DURABILITY,10,true);
         arr_meta.lore(Arrays.asList(Component.text("The true power of Ikuyumiya can only be harnessed alongside Ikutachi.")));
-        arr_meta.displayName(Component.text("Ikuyumiya").color(TextColor.fromHexString("#66000")));
+        arr_meta.displayName(Component.text("Ikuyumiya").color(TextColor.fromHexString("#66000d")));
         arrow.setItemMeta(arr_meta);
 
         return arrow;
@@ -65,40 +65,40 @@ public class SamuraiKit extends Kit {
         ItemMeta helmet_meta = helmet.getItemMeta();
         helmet_meta.addEnchant(Enchantment.THORNS,3,true);
         helmet_meta.addEnchant(Enchantment.DURABILITY,10,true);
-        helmet_meta.displayName(Component.text("Kabuto").color(TextColor.fromHexString("#66000")));
+        helmet_meta.displayName(Component.text("Kabuto").color(TextColor.fromHexString("#66000d")));
         helmet.setItemMeta(helmet_meta);
 
         return helmet;
     }
 
     private ItemStack createChestplate() {
-        ItemStack chestplate = new ItemStack(Material.CHAINMAIL_HELMET);
+        ItemStack chestplate = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
         ItemMeta chestplate_meta = chestplate.getItemMeta();
         chestplate_meta.addEnchant(Enchantment.THORNS,3,true);
         chestplate_meta.addEnchant(Enchantment.DURABILITY,10,true);
-        chestplate_meta.displayName(Component.text("Kabuto").color(TextColor.fromHexString("#66000")));
+        chestplate_meta.displayName(Component.text("Kabuto").color(TextColor.fromHexString("#66000d")));
         chestplate.setItemMeta(chestplate_meta);
 
         return chestplate;
     }
 
     private ItemStack createLeggings() {
-        ItemStack leggings = new ItemStack(Material.CHAINMAIL_HELMET);
+        ItemStack leggings = new ItemStack(Material.CHAINMAIL_LEGGINGS);
         ItemMeta leggings_meta = leggings.getItemMeta();
         leggings_meta.addEnchant(Enchantment.THORNS,3,true);
         leggings_meta.addEnchant(Enchantment.DURABILITY,10,true);
-        leggings_meta.displayName(Component.text("Kabuto").color(TextColor.fromHexString("#66000")));
+        leggings_meta.displayName(Component.text("Kabuto").color(TextColor.fromHexString("#66000d")));
         leggings.setItemMeta(leggings_meta);
 
         return leggings;
     }
 
     private ItemStack createBoots() {
-        ItemStack boots = new ItemStack(Material.CHAINMAIL_HELMET);
+        ItemStack boots = new ItemStack(Material.CHAINMAIL_BOOTS);
         ItemMeta boots_meta = boots.getItemMeta();
         boots_meta.addEnchant(Enchantment.THORNS,3,true);
         boots_meta.addEnchant(Enchantment.DURABILITY,10,true);
-        boots_meta.displayName(Component.text("Kabuto").color(TextColor.fromHexString("#66000")));
+        boots_meta.displayName(Component.text("Kabuto").color(TextColor.fromHexString("#66000d")));
         boots.setItemMeta(boots_meta);
 
         return boots;

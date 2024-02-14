@@ -3,6 +3,8 @@ package me.kagenyx.lastmanstanding.kit.type;
 import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.kit.Kit;
 import me.kagenyx.lastmanstanding.kit.KitType;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -21,6 +23,8 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,8 +41,7 @@ public class VikingKit extends Kit {
     public VikingKit(LastManStanding lms, UUID uuid) {
 
         super(lms,KitType.VIKING, uuid);
-        LinkedList<Material> meat_ll = new LinkedList<>();
-        this.meat_ll.addAll(Arrays.asList(meat));
+        this.meat_ll = new LinkedList<>(Arrays.asList(meat));
     }
 
     @Override
@@ -81,6 +84,15 @@ public class VikingKit extends Kit {
 
     @EventHandler
     public void onArrowDamage(EntityDamageByEntityEvent e) {
+        if(e.getDamager().getType() == EntityType.PLAYER){
+            if(uuid.equals(e.getDamager().getUniqueId())){
+                if(e.getEntity() instanceof Player) {
+                    Player p = (Player) e.getEntity();
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,200,0));
+            }
+        }
+        }
+
         if(e.getDamager().getType() == EntityType.ARROW){
             if(e.getEntity() instanceof Player){
                 if(uuid.equals(e.getEntity().getUniqueId())){
@@ -97,6 +109,7 @@ public class VikingKit extends Kit {
         axemeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED,am);
         axemeta.addEnchant(Enchantment.DURABILITY,10,true);
         axemeta.addEnchant(Enchantment.FIRE_ASPECT,1,true);
+        axemeta.displayName(Component.text("Biofrost").color(TextColor.fromHexString("#1c4587")));
         axe.setItemMeta(axemeta);
 
         return axe;

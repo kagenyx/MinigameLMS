@@ -11,9 +11,7 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -34,8 +32,10 @@ public class Agent47Kit extends Kit {
     @Override
     public void onStart(Player player) {
         player.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+
         ItemStack pot = createPotInv();
         player.getInventory().addItem(pot,pot,pot);
+
         player.getInventory().addItem(new ItemStack(Material.TNT,32));
         player.getInventory().addItem(createSword());
         player.getInventory().addItem(new ItemStack(Material.REDSTONE_TORCH,2));

@@ -5,6 +5,7 @@ import me.kagenyx.lastmanstanding.kit.Kit;
 import me.kagenyx.lastmanstanding.kit.KitType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -40,7 +41,8 @@ public class SamuraiKit extends Kit {
         katana_meta.setCustomModelData(99);
         katana_meta.addEnchant(Enchantment.DAMAGE_ALL,2,true);
         katana_meta.addEnchant(Enchantment.DURABILITY,10,true);
-        katana_meta.displayName(Component.text("Ikutachi").color(TextColor.fromHexString("#66000d")));
+        //CHECK IF BOLD
+        katana_meta.displayName(Component.text("Ikutachi").color(TextColor.fromHexString("#66000d")).decorate(TextDecoration.BOLD));
         katana_meta.lore(Arrays.asList(Component.text("The true power of Ikutachi can only be harnessed alongside Ikuyumiya.")));
         katana.setItemMeta(katana_meta);
 

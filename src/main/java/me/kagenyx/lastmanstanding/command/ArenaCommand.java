@@ -62,6 +62,8 @@ public class ArenaCommand implements CommandExecutor {
                     } else {
                         p.sendMessage(Component.text("Great success!",NamedTextColor.GREEN));
                         arena.addPlayer(p);
+                        p.getInventory().clear();
+                        p.clearActivePotionEffects();
                     }
                 } else {
                     p.sendMessage(Component.text("Invalid arena.",NamedTextColor.RED));

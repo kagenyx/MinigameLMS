@@ -4,6 +4,7 @@ import me.kagenyx.lastmanstanding.GameState;
 import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.instances.Arena;
 import me.kagenyx.lastmanstanding.kit.KitUI;
+import me.kagenyx.lastmanstanding.team.TeamGUI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
@@ -78,6 +79,17 @@ public class ArenaCommand implements CommandExecutor {
                     }
                 } else {
                     //do nothing
+                }
+            } else if (args.length == 1  && args[0].equalsIgnoreCase("team")) {
+                Arena arena = lms.getArenaManager().getArena(p);
+                if(arena != null) {
+                    if (arena.getState() != GameState.LIVE) {
+                        new TeamGUI(p,arena);
+                    } else {
+                        //ta a jogar logo n pode selecionar team:D
+                    }
+                } else {
+
                 }
             }
             else {

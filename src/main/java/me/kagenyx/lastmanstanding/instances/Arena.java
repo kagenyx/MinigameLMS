@@ -1,12 +1,14 @@
 package me.kagenyx.lastmanstanding.instances;
 
 
+import com.google.common.collect.TreeMultimap;
 import me.kagenyx.lastmanstanding.GameState;
 import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.kit.Kit;
 import me.kagenyx.lastmanstanding.kit.KitType;
 import me.kagenyx.lastmanstanding.kit.type.*;
 import me.kagenyx.lastmanstanding.managers.ConfigManager;
+import me.kagenyx.lastmanstanding.team.Team;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -28,6 +30,7 @@ public class Arena {
 
     private GameState state;
     private List<UUID> players;
+    private HashMap<UUID, Team> teams;
     private HashMap<UUID,Kit> kits;
     private Countdown countdown;
     private Game game;
@@ -40,6 +43,7 @@ public class Arena {
         this.state = GameState.RECRUITING;
         this.players = new ArrayList<>();
         this.kits = new HashMap<UUID, Kit>();
+        this.teams = new HashMap<>();
         this.countdown = new Countdown(lms, this);
         this.game = new Game(this);
     }
@@ -79,15 +83,27 @@ public class Arena {
     public void addPlayer(Player p) {
         players.add(p.getUniqueId());
         p.teleport(this.spawn);
+
+        TreeMultimap<Integer,Team> count = TreeMultimap.create();
+        for (Team team : Team.values()) {
+            count.put(getTeamCount(team),team);
+        }
+
+        Team lowest = (Team) count.values().toArray()[0];
+        setTeam(p, lowest);
+
+        p.sendMessage(Component.text("You have been automatically placed on team " + lowest.getDisplay() + "."));
+
         if(state.equals(GameState.RECRUITING) && players.size() >= ConfigManager.getReqPlayers()) {
             countdown.start();
         }
+
     }
 
     public void removePlayer(Player p) {
         players.remove(p.getUniqueId());
         p.teleport(ConfigManager.getLobby());
-
+        removeTeam(p);
         removeKit(p.getUniqueId());
         if(this.state == GameState.COUNTDOWN && players.size() < ConfigManager.getReqPlayers()){
             sendMessage(Component.text("Acabou viado"));
@@ -132,8 +148,9 @@ public class Arena {
                 Bukkit.getPlayer(uuid).getInventory().clear();
             }
             players.clear();
+            teams.clear();
+            kits.clear();
         }
-        kits.clear();
         state = GameState.RECRUITING;
         countdown.cancel();
         countdown = new Countdown(lms,this);
@@ -170,5 +187,31 @@ public class Arena {
 
     public KitType getKitType (Player player) {
         return kits.containsKey(player.getUniqueId()) ? kits.get(player.getUniqueId()).getType() : null;
+    }
+
+    public void setTeam(Player player, Team team) {
+        removeTeam(player);
+        teams.put(player.getUniqueId(),team);
+    }
+
+    public void removeTeam(Player player) {
+        if(teams.containsKey(player.getUniqueId())) {
+            teams.remove(player.getUniqueId());
+        }
+    }
+
+    public int getTeamCount(Team team){
+        int amount = 0;
+        for (Team t : teams.values()){
+            if (t == team) {
+                amount++;
+            }
+        }
+
+        return amount;
+    }
+
+    public Team getTeam(Player player ){
+        return teams.get(player.getUniqueId());
     }
 }

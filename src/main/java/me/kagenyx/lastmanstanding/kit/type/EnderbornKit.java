@@ -38,7 +38,7 @@ public class EnderbornKit extends Kit {
     private String texture = "c09f1de6135f4bea781c5a8e0d61095f833ee2685d8154ecea814ee6d328a5c6";
 
     public EnderbornKit(LastManStanding lms, UUID uuid) {
-        super(lms, KitType.VIKING, uuid);
+        super(lms, KitType.ENDERBORN, uuid);
     }
 
     @Override

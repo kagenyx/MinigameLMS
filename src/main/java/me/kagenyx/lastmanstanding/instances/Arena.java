@@ -176,8 +176,8 @@ public class Arena {
             kits.put(uuid, new Agent47Kit(lms,uuid));
         } else if (type == KitType.BEASTMASTER) {
             kits.put(uuid, new BeastmasterKit(lms,KitType.BEASTMASTER,uuid));
-        } else if (type == KitType.VIKING) {
-            kits.put(uuid, new VikingKit(lms,uuid));
+        } else if (type == KitType.FISHERMAN) {
+            kits.put(uuid, new FishermanKit(lms,uuid));
         } else if (type == KitType.GAMBLER) {
             kits.put(uuid, new GamblerKit(lms,KitType.GAMBLER,uuid));
         } else if (type == KitType.SAMURAI) {

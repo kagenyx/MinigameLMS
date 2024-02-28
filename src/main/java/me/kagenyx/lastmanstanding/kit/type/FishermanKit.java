@@ -46,6 +46,5 @@ public class FishermanKit extends Kit {
             ItemMeta itemMeta = itemStack.getItemMeta();
 
         }
-
     }
 }

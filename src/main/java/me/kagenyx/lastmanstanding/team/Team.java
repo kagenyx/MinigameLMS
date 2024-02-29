@@ -1,6 +1,7 @@
 package me.kagenyx.lastmanstanding.team;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Material;
 
 public enum Team {
@@ -20,13 +21,13 @@ public enum Team {
     TWELVE(Component.text("Twelve")),
     THIRTEEN(Component.text("Thirteen"));
 
-    private Component display;
+    private TextComponent display;
 
-    Team(Component display) {
+    Team(TextComponent display) {
         this.display = display;
     }
 
-    public Component getDisplay() {
+    public TextComponent getDisplay() {
         return display;
     }
 

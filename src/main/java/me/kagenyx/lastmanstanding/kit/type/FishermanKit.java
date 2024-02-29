@@ -39,9 +39,7 @@ public class FishermanKit extends Kit {
             Item item = (Item) event.getCaught();
 
             ItemStack itemStack = item.getItemStack();
-            if (!itemStack.hasItemMeta()) {
-                return;
-            }
+
             itemStack.setType(Material.COBWEB);
             ItemMeta itemMeta = itemStack.getItemMeta();
 

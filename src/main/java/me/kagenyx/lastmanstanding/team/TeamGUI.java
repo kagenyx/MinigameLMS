@@ -23,8 +23,8 @@ public class TeamGUI {
         for (Team team : Team.values()) {
             int count = arena.getTeamCount(team);
             switch(count){
-                case '0':
-                    ItemStack wool = designWool(new ItemStack(Material.GREEN_WOOL),count,team);
+                case 0:
+                    ItemStack wool = designWool(new ItemStack(Material.LIME_WOOL),count,team);
                     gui.addItem(wool);
                     break;
                 case TEAM_MAX_SIZE:
@@ -43,8 +43,7 @@ public class TeamGUI {
 
     private ItemStack designWool(ItemStack wool,int size, Team team){
         ItemMeta im = wool.getItemMeta();
-        im.displayName(Component.text("Team " + team.getDisplay()
-                +". (" + size + "/2)"));
+        im.displayName(Component.text("Team " + team.getDisplay().content() + ". (" + size + "/2)"));
         im.setLocalizedName(team.name());
         wool.setItemMeta(im);
         return wool;

@@ -8,9 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.UUID;
+import java.util.*;
 
 public class Game {
 
@@ -47,7 +45,7 @@ public class Game {
             return;
         }
 
-        player.sendMessage(Component.text("Ganhaste um ponto"));
+        //player.sendMessage(Component.text("Ganhaste um ponto"));
         points.replace(player.getUniqueId(),playerPoints);
     }
 
@@ -55,6 +53,7 @@ public class Game {
         this.dead.put(p.getUniqueId(),teams.get(p));
         p.setGameMode(GameMode.SPECTATOR);
         checkTeams(teams.get(p));
+        checkAlive();
     }
 
     private void checkTeams(Team t) {
@@ -62,5 +61,31 @@ public class Game {
             arena.sendMessage(Component.text("Oh shit! Team "
                     + t.getDisplay().content() + " just got eliminated!").color(NamedTextColor.RED));
         }
+    }
+
+    private void checkAlive() {
+        if (teams.size() - 2 == dead.size()) {
+            //Caso a equipa seja a mesma!
+            if(getDifferenceValues(teams,dead).toArray()[0].equals(getDifferenceValues(teams,dead).toArray()[0])) {
+                arena.sendMessage(Component.text("Oh shit! Team "
+                        + ((Team)(getDifferenceValues(teams,dead).toArray()[0])).getDisplay().content() + " just won!!").color(NamedTextColor.GREEN));
+                arena.reset(true);
+            } else {
+                arena.sendMessage(Component.text("Holy schnitzel! Only 2 players left!").color(NamedTextColor.RED));
+            }
+
+        }
+    }
+
+    private <K, V> Set<V> getDifferenceValues(Map<K, V> map1, Map<K, V> map2) {
+        Set<K> differenceKeys = new HashSet<>(map1.keySet());
+        differenceKeys.removeAll(map2.keySet());
+
+        Set<V> differenceValues = new HashSet<>();
+        for (K key : differenceKeys) {
+            differenceValues.add(map1.get(key));
+        }
+
+        return differenceValues;
     }
 }

@@ -89,6 +89,5 @@ public class GameListener implements Listener {
                 game.playerDied(e.getEntity().getKiller());
             }
         }
-
     }
 }

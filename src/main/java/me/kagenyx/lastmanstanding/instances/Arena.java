@@ -11,6 +11,7 @@ import me.kagenyx.lastmanstanding.managers.ConfigManager;
 import me.kagenyx.lastmanstanding.team.Team;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.units.qual.C;
@@ -146,6 +147,7 @@ public class Arena {
                 removeKit(Bukkit.getPlayer(uuid).getUniqueId());
                 Bukkit.getPlayer(uuid).clearActivePotionEffects();
                 Bukkit.getPlayer(uuid).getInventory().clear();
+                Bukkit.getPlayer(uuid).setGameMode(GameMode.SURVIVAL);
             }
             players.clear();
             teams.clear();

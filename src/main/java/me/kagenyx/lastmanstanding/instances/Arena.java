@@ -92,7 +92,7 @@ public class Arena {
         Team lowest = (Team) count.values().toArray()[0];
         setTeam(p, lowest);
 
-        p.sendMessage(Component.text("You have been automatically placed on team " + lowest.getDisplay() + "."));
+        p.sendMessage(Component.text("You have been automatically placed on team " + lowest.getDisplay().content() + "."));
 
         if(state.equals(GameState.RECRUITING) && players.size() >= ConfigManager.getReqPlayers()) {
             countdown.start();
@@ -213,5 +213,9 @@ public class Arena {
 
     public Team getTeam(Player player ){
         return teams.get(player.getUniqueId());
+    }
+
+    public HashMap<UUID, Team> getTeams() {
+        return this.teams;
     }
 }

@@ -3,6 +3,7 @@ package me.kagenyx.lastmanstanding.listener;
 import me.kagenyx.lastmanstanding.GameState;
 import me.kagenyx.lastmanstanding.LastManStanding;
 import me.kagenyx.lastmanstanding.instances.Arena;
+import me.kagenyx.lastmanstanding.instances.Game;
 import me.kagenyx.lastmanstanding.kit.KitType;
 import me.kagenyx.lastmanstanding.team.Team;
 import net.kyori.adventure.text.Component;
@@ -83,6 +84,10 @@ public class GameListener implements Listener {
     public void killPlayer(EntityDeathEvent e){
         if(e.getEntity().getKiller() instanceof Player) {
             Arena arena = this.lms.getArenaManager().getArena(e.getEntity().getKiller());
+            if (arena != null) {
+                Game game = arena.getGame();
+                game.playerDied(e.getEntity().getKiller());
+            }
         }
 
     }

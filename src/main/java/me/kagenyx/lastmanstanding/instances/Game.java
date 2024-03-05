@@ -17,12 +17,12 @@ public class Game {
     private Arena arena;
     private HashMap<UUID,Integer> points;
     private HashMap<UUID, Team> teams;
-    private LinkedList<UUID> dead;
+    private HashMap<UUID, Team> dead;
     public Game(Arena arena){
         this.arena = arena;
         this.points = new HashMap<>();
         this.teams = arena.getTeams();
-        this.dead = new LinkedList<>();
+        this.dead = new HashMap<>();
     }
 
     public void start() {
@@ -52,12 +52,15 @@ public class Game {
     }
 
     public void playerDied(Player p) {
-        this.dead.add(p.getUniqueId());
+        this.dead.put(p.getUniqueId(),teams.get(p));
         p.setGameMode(GameMode.SPECTATOR);
-        checkTeams(p);
+        checkTeams(teams.get(p));
     }
 
-    private void checkTeams(Player p) {
-
+    private void checkTeams(Team t) {
+        if (dead.values().size() == 2 && dead.values().contains(t)) {
+            arena.sendMessage(Component.text("Oh shit! Team "
+                    + t.getDisplay().content() + " just got eliminated!").color(NamedTextColor.RED));
+        }
     }
 }

@@ -1,6 +1,7 @@
 package me.kagenyx.lastmanstanding.kit;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
@@ -18,20 +19,20 @@ public enum KitType {
     NOOB(Component.text("N00b").color(NamedTextColor.WHITE),Material.STICK,Component.text("How do I craft a Sponge?").color(NamedTextColor.GRAY)),
     GAMBLER(Component.text("Gambler"),Material.EMERALD,Component.text("A Betano está a oferecer rodadas grátis").color(NamedTextColor.GRAY));
 
-    private Component text, desc;
+    private TextComponent text, desc;
     private Material material;
 
-    KitType(Component text, Material material, Component desc) {
+    KitType(TextComponent text, Material material, TextComponent desc) {
         this.text = text;
         this.material = material;
         this.desc = desc;
     }
 
-    public Component getDisplay() {
+    public TextComponent getDisplay() {
         return text;
     }
 
-    public Component getDesc() {
+    public TextComponent getDesc() {
         return desc;
     }
 

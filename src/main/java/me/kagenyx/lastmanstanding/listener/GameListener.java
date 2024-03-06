@@ -37,9 +37,9 @@ public class GameListener implements Listener {
             if (arena != null) {
                 KitType act = arena.getKitType(p);
                 if (act != null && act == type) {
-                    //n é possível caguei no send message tbh :(
+
                 } else {
-                    p.sendMessage(Component.text("You've chosen " + type.getDisplay()));
+                    p.sendMessage(Component.text("You've chosen " + type.getDisplay().content()));
                     arena.setKit(p.getUniqueId(),type);
                 }
                 p.closeInventory();
@@ -60,7 +60,7 @@ public class GameListener implements Listener {
                         p.sendMessage(Component.text("That team is full!", NamedTextColor.RED));
 
                     } else {
-                        p.sendMessage(Component.text("You've chosen " + team.getDisplay()));
+                        p.sendMessage(Component.text("You've chosen " + team.getDisplay().content()));
                         arena.setTeam(p,team);
                     }
                 }

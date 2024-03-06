@@ -1,6 +1,7 @@
 package me.kagenyx.lastmanstanding;
 
 import me.kagenyx.lastmanstanding.command.ArenaCommand;
+import me.kagenyx.lastmanstanding.command.ArenaTab;
 import me.kagenyx.lastmanstanding.instances.Arena;
 import me.kagenyx.lastmanstanding.listener.ConnectListener;
 import me.kagenyx.lastmanstanding.listener.GameListener;
@@ -22,6 +23,7 @@ public final class LastManStanding extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new GameListener(this), this);
 
         getCommand("arena").setExecutor(new ArenaCommand(this));
+        getCommand("arena").setTabCompleter(new ArenaTab());
     }
     public ArenaManager getArenaManager() {
         return am;

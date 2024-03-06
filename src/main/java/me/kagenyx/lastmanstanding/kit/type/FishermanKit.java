@@ -112,6 +112,7 @@ public class FishermanKit extends Kit {
             }
         }
     }
+
     @EventHandler
     public void onFishEat(PlayerItemConsumeEvent e) {
         if(e.getPlayer().getUniqueId().equals(uuid)){
